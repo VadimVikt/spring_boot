@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-9">
+        <h4 th:text="${title}"></h4>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <th scope="col">Id</th>
+        <th scope="col">Username</th>
+        <th scope="col">Password</th>
+        <th scope="col">email</th>
+        <th scope="col">Редактировать</th>
+        <th scope="col">Удалить</th>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.email}"></td>
+
+            <td><a th:href="@{'edit/' + ${user.id}}">edit</a></td>
+            <td><a th:href="@{'remove/' + ${user.id}}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="mb-3">
+        <a href="/user" class="btn btn-info"> Посмотреть свои данные </a>
+    </div>
+    <div class="mb-3">
+        <a href="/logout" class="btn btn-danger"> Выйти из системы </a>
+    </div>
+</div>
+</body>
+</html>

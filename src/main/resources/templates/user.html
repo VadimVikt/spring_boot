@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title th:text="${title}"></title>
+
+</head>
+<body>
+<div>
+    <div class="container">
+        <h2 th:text="${title}"></h2>
+        <p>Вы на своей странице</p>
+        <p>Ваш логин - <span th:text="${user.username}"></span></p>
+        <p>Ваш email - <span th:text="${user.email}"></span></p>
+        <p>Пароль, надеюсь вы помните</p>
+
+        <a href="/logout" class="btn btn-danger"> Выйти из системы </a>
+
+    </div>
+</div>
+</body>
+</html>

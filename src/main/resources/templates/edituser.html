@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+    <h3>Редактировать пользователя</h3>
+    <p th:text="${title}"></p>
+    <form th:action="@{/edituser}" th:object="${user}" method="post" class="form-group">
+        <input type="hidden" name="id" th:field="*{id}" class="form-control">
+        <input type="hidden" name="roles" th:field="*{roles}" class="form-control">
+        <input type="text" name="password" th:field="*{password}" class="form-control">
+        <input type="text" name="username" th:field="*{username}" class="form-control">
+        <input type="email" name="email" th:field="*{email}" class="form-control">
+
+        <input type="submit" value="Изменить" class="btn btn-primary">
+
+
+    </form>
+</div>
+</body>
+</html>

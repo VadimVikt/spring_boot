@@ -1,7 +1,8 @@
 server:
   port: 8189
   servlet:
-    context-path: /security
+#    context-path: /security
+    context-path: /
 spring:
   jpa:
     show-sql: true
