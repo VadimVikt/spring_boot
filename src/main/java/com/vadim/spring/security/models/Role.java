@@ -20,8 +20,8 @@ public class Role implements GrantedAuthority {
 
     public Role() {
     }
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
     public long getId() {

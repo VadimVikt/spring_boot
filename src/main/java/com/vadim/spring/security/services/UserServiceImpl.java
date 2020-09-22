@@ -1,5 +1,6 @@
 package com.vadim.spring.security.services;
 
+import com.vadim.spring.security.models.Role;
 import com.vadim.spring.security.models.User;
 import com.vadim.spring.security.repositories.RoleRepository;
 import com.vadim.spring.security.repositories.UserRepository;
@@ -11,11 +12,16 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
+    final
     UserRepository userRepository;
 
-    @Autowired
+    final
     RoleRepository roleRepository;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     @Transactional
@@ -24,9 +30,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public void add(User user) {
         System.out.println("Сервис Добавить юзера - ");
-        System.out.println(user.toString());
+        System.out.println(user.getUsername());
+        System.out.println(user.getLastName());
+        System.out.println(user.getEmail());
+        System.out.println(user.getAge());
+        for (Role r: user.getRoles()) {
+            System.out.println(r.getName());
+        }
+        userRepository.save(user);
     }
 
     @Override

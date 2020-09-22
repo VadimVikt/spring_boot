@@ -54,48 +54,23 @@
             </table>
             <div  id="add-user" class="hidden">
             <b>Add new User</b>
-                <form class="form-group" th:action="@{/add}"   th:object="${user}"  method="post" accept-charset="utf-8">
-<!--                    <form action="#" th:action="@{/add}" th:object="${user}" method="post">-->
-<!--                        User ID: <span th:text="${user.id}"/>-->
-<!--                        <input type="hidden" name="id" id="id" th:field="*{id}">-->
-<!--                        <label for="name">Name</label>-->
-<!--                        <input type="text" name="name" id="name" th:field="*{username}">-->
-<!--                        <label for="password">Password</label>-->
-<!--                        <input type="text" name="password" id="password" th:field="*{password}">-->
-<!--                        <label for="age">Age</label>-->
-<!--                        <input type="text" name="age" id="age" th:field="*{age}">-->
-<!--                        <label for="email">Email</label>-->
-<!--                        <input type="email" name="email" id="email" th:field="*{email}">-->
-<!--                        <div th:each="rol : ${allRoles}" >-->
-<!--                            <label th:for="${rol.name}" th:text="${rol.name}"></label>-->
-<!--                            <input th:type="checkbox" name="roles"  th:value="${rol.name}"> </label>-->
-<!--                        </div>-->
-<!--                        <input type="submit" value="Edit User">-->
-<!--                    </form>-->
+                <form class="form-group" th:action="@{/user_update}"   th:object="${user}"  method="post" accept-charset="utf-8">
                     <label for="first-name">First Name</label>
                     <input  class="form-control" id="first-name" type="text" name="username"  required>
                     <label for="last-name">Last Name</label>
                     <input  class="form-control" id="last-name" type="text" name="lastName"  required>
                     <label for="age">Age</label>
-                    <input  class="form-control" id="age" type="text" name="age"  required>
+                    <input  class="form-control" id="age" type="number" name="age"  required>
                     <label for="email">Email</label>
                     <input  class="form-control" id="email" type="email" name="email"  required>
                     <label for="password">Password</label>
                     <input  class="form-control" id="password" type="text" name="password"  required>
-
-<!--                    <div class="form-check"  th:each="rol : ${allRoles}">-->
-<!--&lt;!&ndash;                        <input class="form-check-input" name="roles"  th:value="${user.roles}"  th:type="checkbox"  th:attr="id=${role.name}">&ndash;&gt;-->
-<!--                        <input th:type="checkbox" th:name="roles"  th:value="${rol.name}"> ${#sets.toSet(object)}-->
-
-<!--                        <label class="form-check-label" th:text="${rol.name}" th:for="${rol.name}"> </label>-->
-<!--                    </div>-->
                     <label th:for="roles">Roles </label>
-                    <select multiple th:name="roles" size="3" th:id="roles" required>
-<!--                        <option disabled>Select roles</option>-->
+                    <select multiple th:name="myRoles" size="3" th:id="roles" required>
                         <option th:each="role : ${allRoles}"
-
-                                th:value="${role.name}"
-                                th:text="${role.name}"></option>
+                                th:value="${role.getName()}"
+                                th:text="${role.getName()}">
+                        </option>
                     </select>
 
 <!--                    <div th:each="rol : ${allRoles}" >th:name="${#sets.toSet(role.name)}"-->

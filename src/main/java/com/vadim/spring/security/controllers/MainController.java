@@ -1,6 +1,5 @@
 package com.vadim.spring.security.controllers;
 
-import com.sun.istack.NotNull;
 import com.vadim.spring.security.models.Role;
 import com.vadim.spring.security.models.User;
 import com.vadim.spring.security.repositories.RoleRepository;
@@ -13,7 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -134,20 +135,34 @@ public class MainController {
         return "redirect:/all";
     }
     @PostMapping("/add")
-    public ModelAndView addNewUser(@ModelAttribute("user") User user){
+    public ModelAndView addNewUser(@ModelAttribute("user") User user, String[] myroles ){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/all");
-        System.out.println("Новый контроллер -  " + user.toString());
+        System.out.println(user.toString());
+//        System.out.println(username + " " + lastname + " " + email + " " + age + " " + password + " Роли - " );
+        for (String  a : myroles) {
+            System.out.println("Роли - " + a);
+        }
+//        System.out.println("Новый контроллер -  " + user.toString());
         System.out.println("======================================");
-        userService.add(user);
+//        userService.add(user);
         return modelAndView;
     }
     @PostMapping(value = "/user_update")
-    public String updateUserNew(User user) {
+    public String updateUserNew(@ModelAttribute("user") User user, String[] myRoles) {
         System.out.println("Обновляем юзера");
         System.out.println(user.toString());
+        Role rol = new Role();
+        Set<Role> r = new HashSet<>();
+        for (String  a : myRoles) {
+            rol.setName(a);
+            r.add(rol);
+            System.out.println("Роли - " + a);
+        }
+        user.setRoles(r);
         System.out.println("===========================================");
 
+        userService.add(user);
         return "redirect:/all";
     }
 

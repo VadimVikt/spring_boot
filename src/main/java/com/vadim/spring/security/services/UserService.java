@@ -1,5 +1,6 @@
 package com.vadim.spring.security.services;
 
+import com.vadim.spring.security.models.Role;
 import com.vadim.spring.security.models.User;
 
 import java.util.List;
