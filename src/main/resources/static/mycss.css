@@ -1,0 +1,43 @@
+.content {
+    margin-top: 5px;
+    background-color: #fafafa;
+    /*display: table-row;*/
+    height:650px;
+}
+
+a  a:hover {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.list-group {
+    border: none;
+}
+.side-bar {
+    margin-top: 5px;
+}
+
+.active-link a {
+    color: #fafafa;
+
+}
+
+.footer {
+    height: 50px;
+    background-color: gainsboro;
+    /*flex: 0 0 auto;*/
+}
+
+.display {
+    display: block;
+}
+.hidden {
+     display: none;
+}
+
+form {
+    text-align: center;
+    font-weight: bold;
+}

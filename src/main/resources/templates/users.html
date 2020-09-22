@@ -1,42 +1,232 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title th:text="${title}"></title>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<!--      xmlns:th="http://www.w3.org/1999/xhtml" -->
+
+<head th:replace="view/header :: header-css">
+
 </head>
 <body>
-<div class="container">
-    <div class="col-md-9">
-        <h4 th:text="${title}"></h4>
-    </div>
-    <table class="table">
-        <thead class="thead-dark">
-        <th scope="col">Id</th>
-        <th scope="col">Username</th>
-        <th scope="col">Password</th>
-        <th scope="col">email</th>
-        <th scope="col">Редактировать</th>
-        <th scope="col">Удалить</th>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${listUsers}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.password}"></td>
-            <td th:text="${user.email}"></td>
+<nav th:replace="view/header :: header"></nav>
 
-            <td><a th:href="@{'edit/' + ${user.id}}">edit</a></td>
-            <td><a th:href="@{'remove/' + ${user.id}}">delete</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="mb-3">
-        <a href="/user" class="btn btn-info"> Посмотреть свои данные </a>
-    </div>
-    <div class="mb-3">
-        <a href="/logout" class="btn btn-danger"> Выйти из системы </a>
+<div class="container">
+    <div class="row">
+       <div th:replace="view/sidebar :: sidebar"></div>
+        <div class="col-10 content">
+            <h2 th:text="${title}"></h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="users-table" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="new-user"href="#" >New user</a>
+                </li>
+
+            </ul>
+            <table id="users"  class="table table-striped display">
+                <thead class="thead-light">
+                <th scope="col">Id</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Age</th>
+                <th scope="col">email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${listUsers}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td >
+                        <span th:each="role, index : ${user.roles}">
+                        <span th:text="${role.name}">th:</span>
+                        </span>
+                    </td>
+                    <td><a th:href="@{'edit/' + ${user.id}}" class="btn btn-info">edit</a>
+                        <a th:href="@{'findOne/' + ${user.id}}" class="btn btn-primary eBtn">Тоже Edit</a>
+                    <td><a th:href="@{'remove/' + ${user.id}}" class="btn btn-danger">delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div  id="add-user" class="hidden">
+            <b>Add new User</b>
+                <form class="form-group" th:action="@{/add}"   th:object="${user}"  method="post" accept-charset="utf-8">
+<!--                    <form action="#" th:action="@{/add}" th:object="${user}" method="post">-->
+<!--                        User ID: <span th:text="${user.id}"/>-->
+<!--                        <input type="hidden" name="id" id="id" th:field="*{id}">-->
+<!--                        <label for="name">Name</label>-->
+<!--                        <input type="text" name="name" id="name" th:field="*{username}">-->
+<!--                        <label for="password">Password</label>-->
+<!--                        <input type="text" name="password" id="password" th:field="*{password}">-->
+<!--                        <label for="age">Age</label>-->
+<!--                        <input type="text" name="age" id="age" th:field="*{age}">-->
+<!--                        <label for="email">Email</label>-->
+<!--                        <input type="email" name="email" id="email" th:field="*{email}">-->
+<!--                        <div th:each="rol : ${allRoles}" >-->
+<!--                            <label th:for="${rol.name}" th:text="${rol.name}"></label>-->
+<!--                            <input th:type="checkbox" name="roles"  th:value="${rol.name}"> </label>-->
+<!--                        </div>-->
+<!--                        <input type="submit" value="Edit User">-->
+<!--                    </form>-->
+                    <label for="first-name">First Name</label>
+                    <input  class="form-control" id="first-name" type="text" name="username"  required>
+                    <label for="last-name">Last Name</label>
+                    <input  class="form-control" id="last-name" type="text" name="lastName"  required>
+                    <label for="age">Age</label>
+                    <input  class="form-control" id="age" type="text" name="age"  required>
+                    <label for="email">Email</label>
+                    <input  class="form-control" id="email" type="email" name="email"  required>
+                    <label for="password">Password</label>
+                    <input  class="form-control" id="password" type="text" name="password"  required>
+
+<!--                    <div class="form-check"  th:each="rol : ${allRoles}">-->
+<!--&lt;!&ndash;                        <input class="form-check-input" name="roles"  th:value="${user.roles}"  th:type="checkbox"  th:attr="id=${role.name}">&ndash;&gt;-->
+<!--                        <input th:type="checkbox" th:name="roles"  th:value="${rol.name}"> ${#sets.toSet(object)}-->
+
+<!--                        <label class="form-check-label" th:text="${rol.name}" th:for="${rol.name}"> </label>-->
+<!--                    </div>-->
+                    <label th:for="roles">Roles </label>
+                    <select multiple th:name="roles" size="3" th:id="roles" required>
+<!--                        <option disabled>Select roles</option>-->
+                        <option th:each="role : ${allRoles}"
+                                name="roles"
+                                th:value="${role.name}"
+                                th:text="${role.name}"></option>
+                    </select>
+
+<!--                    <div th:each="rol : ${allRoles}" >th:name="${#sets.toSet(role.name)}"-->
+<!--                        <label th:for="${rol.name}" th:text="${rol.name}"></label>-->
+<!--                        <input th:type="checkbox" th:name="${user.roles}" th:value="${rol.name}"> </label>-->
+<!--                    </div>-->
+
+                    <input  class="btn btn-success mt-1" type="submit" value="Add new user">
+
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-user-id="${user.id}" data-target="#exampleModal">
+    Запустить модальное окно
+</button>
+
+<!-- Modal -->
+<div class="my-form">
+    <form th:action="@{/user_update}" method="post">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="firstNameInput">First name</label>
+<!--                                <input type="hidden" id="id" name="id" value="" >-->
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control"  th:name="${user.username}" id="firstNameInput" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="lastNameInput">Last name</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control"  th:name="${user.lastName}" id="lastNameInput" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="lastNameInput">Age</label>
+                                <div class="col-sm-5">
+                                    <input type="number" class="form-control" th:name="${user.age}" id="ageInput"  value=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="emailInput">E-mail</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" th:name="${user.email}" id="emailInput" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="emailInput">ROLES</label>
+                                <div class="col-sm-9" >
+                                    <input type="text" class="form-control" name="roles" id="roleInput" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div th:replace="view/footer :: footer"></div>
+<!--<script th:inline="javascript">-->
+<!--    <![CDATA[-->
+
+<!--    const listUsers = [[${listUsers}]];-->
+<!--    console.log(listUsers);-->
+
+<!--    ]]>-->
+<!--</script>-->
+<script>
+    $("#exampleModal").on('show.bs.modal', function(e) {
+        console.log("Нажали кнопку");
+        let userId = $(e.relatedTarget).data('user-id');
+        let userName = $(e.relatedTarget).data('user-firstname');
+        let userLastName = $(e.relatedTarget).data('user-lastname');
+        let age = $(e.relatedTarget).data('user-age');
+        let email = $(e.relatedTarget).data('user-email');
+        let roles = $(e.relatedTarget).data('user-roles');
+        let ob = $(e.relatedTarget).data('object')
+        console.log($(e.relatedTarget).data('user'));
+
+        console.log(userId);
+        console.log(userName);
+        console.log(userLastName);
+        console.log(age);
+        console.log(email);
+        console.log(roles);
+        console.log(ob);
+
+
+        // var cols = $('#user-' + userId + ' td');
+        // console.log(cols);
+        // var firstName = $(cols[0]).text();
+        // console.log(firstName);
+        // var lastName = $(cols[1]).text();
+        // var email = $(cols[2]).text();
+
+        $('#firstNameInput').val(userName);
+        $('#lastNameInput').val(userLastName);
+        $('#ageInput').val(age);
+        $('#emailInput').val(email);
+        $('#roleInput').val(roles);
+    });
+
+    $("#exampleModal").on('hidden.bs.modal', function() {
+        var form = $(this).find('form');
+        form[0].reset();
+    });
+</script>
 </body>
 </html>

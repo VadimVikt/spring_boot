@@ -1,5 +1,7 @@
 package com.vadim.spring.security.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +19,12 @@ public class User implements UserDetails {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "age")
+    private byte age;
+
     @Column(name = "password")
     private String password;
 
@@ -31,9 +39,11 @@ public class User implements UserDetails {
 
     public User() {
     }
-    public User(Long id, String username, String password, String email, Set<Role> roles) {
+    public User(Long id, String username, String lastName, byte age, String password, String email, Set<Role> roles) {
         this.id = id;
         this.username = username;
+        this.lastName = lastName;
+        this.age = age;
         this.password = password;
         this.email = email;
         this.roles = roles;
@@ -95,12 +105,41 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
-    }
+    } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
 

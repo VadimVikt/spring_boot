@@ -28,19 +28,25 @@ private final UserDetailsService userDetailsService; // сервис, с пом�
     protected void configure(HttpSecurity http) throws Exception {
         //Настройки доступа
         http
+//        .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authenticated/**").authenticated() //Пускаем только аутенфицированных
                 //выбор нескольких ролей для допуска
-                .antMatchers("/all/**").hasRole("ADMIN")
+                .antMatchers("/all/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/editsuser").hasRole("ADMIN")
+                .antMatchers("/new_user").hasRole("ADMIN")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                 .antMatchers("/only_for_admins/**").hasRole("ADMIN") //тоже интересно
                 .antMatchers("/read_profile/**").hasAuthority("READ_PROFILE")
-                .and() //разделитель - настраиваем другое
-               // .httpBasic() //при попытке зайти на страницу, требующую авторизации перекидывает на определенную страницу
-                .formLogin()//тоже самое , только переброска на свою собственную сверстанную красивую што 3,14здец форму
-                .successHandler(successUserHandler)
+                .and()
+                //разделитель - настраиваем другое
+                   // .httpBasic() //при попытке зайти на страницу, требующую авторизации перекидывает на определенную страницу
+                    .formLogin()
+//                    .loginPage("/login")
+//                    .permitAll()
+                    //тоже самое , только переброска на свою собственную сверстанную красивую што 3,14здец форму
+                    .successHandler(successUserHandler)
                 .and()
                 .logout().logoutSuccessUrl("/");//страница, куда перебрасывает после выхода
 

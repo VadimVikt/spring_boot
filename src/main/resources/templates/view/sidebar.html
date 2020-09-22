@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<div th:fragment="sidebar" class="col-2 side-bar">
+    <ul th:if="${isAdmin}" class="list-group">
+        <li th:class="${#httpServletRequest.requestURI.contains('/all')} ? 'list-group-item active active-link' : 'list-group-item'">
+            <a th:href="@{'/all'}">Admin</a>
+        </li>
+        <li th:class="${#httpServletRequest.requestURI.contains('/user')} ? 'list-group-item active active-link' : 'list-group-item'">
+            <a th:href="@{'/user'}" >User</a>
+        </li>
+    </ul>
+    <ul th:if="${isAdmin != true}" class="list-group">
+        <li th:class="${#httpServletRequest.requestURI.contains('/user')} ? 'list-group-item active active-link' : 'list-group-item'">
+            <a th:href="@{'/user'}" >User</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

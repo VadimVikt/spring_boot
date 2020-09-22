@@ -1,5 +1,7 @@
 package com.vadim.spring.security.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -13,11 +15,13 @@ public class Role implements GrantedAuthority {
     private long id;
 
     @Column(name = "name")
+
     private String name;
 
     public Role() {
     }
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+
     private Set<User> users;
 
     public long getId() {
@@ -48,4 +52,13 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Role{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", users=" + users +
+//                '}';
+//    }
 }

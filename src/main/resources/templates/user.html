@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title th:text="${title}"></title>
-
-</head>
+<head th:replace="view/header :: header-css"></head>
 <body>
-<div>
-    <div class="container">
-        <h2 th:text="${title}"></h2>
-        <p>Вы на своей странице</p>
-        <p>Ваш логин - <span th:text="${user.username}"></span></p>
-        <p>Ваш email - <span th:text="${user.email}"></span></p>
-        <p>Пароль, надеюсь вы помните</p>
+<nav th:replace="view/header :: header"></nav>
+<div class="container">
+    <div class="row">
+        <div th:replace="view/sidebar :: sidebar"></div>
+        <div class="col-10 content">
+            <h2 th:text="${title}"></h2>
+            <b>About user</b>
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <th scope="col">Id</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Role</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td >
+                        <span th:each="role : ${user.roles}">
+                        <span th:text="${role.name}"></span>
+                        </span>
+                    </td>
 
-        <a href="/logout" class="btn btn-danger"> Выйти из системы </a>
-
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<div th:replace="view/footer :: footer"></div>
 </body>
 </html>
