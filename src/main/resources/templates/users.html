@@ -93,7 +93,7 @@
                     <select multiple th:name="roles" size="3" th:id="roles" required>
 <!--                        <option disabled>Select roles</option>-->
                         <option th:each="role : ${allRoles}"
-                                name="roles"
+
                                 th:value="${role.name}"
                                 th:text="${role.name}"></option>
                     </select>
