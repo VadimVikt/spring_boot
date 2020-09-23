@@ -26,18 +26,18 @@ public class NewController {
         this.roleRepository = roleRepository;
     }
 
-    @GetMapping("/findOne/{id}")
-    @ResponseBody
-    public User findOne(@PathVariable Long id) {
-
-        System.out.println(id);
-        User us = userService.getById(id);
-        User uuu = userService.findByUsername(us.getUsername());
-        User uss = new User();
-        System.out.println(us.toString());
-        System.out.println(uuu.toString());
-//        Set <Role> r =  us.getRoles();
-//        uss.setRoles((Set<Role>) r);
-        return uuu;
-    }
+//    @GetMapping("/findOne/{id}")
+//    @ResponseBody
+//    public User findOne(@PathVariable Long id) {
+//
+//        System.out.println(id);
+//        User us = userService.getById(id);
+//        User uuu = userService.findByUsername(us.getUsername());
+//        User uss = new User();
+//        System.out.println(us.toString());
+//        System.out.println(uuu.toString());
+////        Set <Role> r =  us.getRoles();
+////        uss.setRoles((Set<Role>) r);
+//        return uuu;
+//    }
 }

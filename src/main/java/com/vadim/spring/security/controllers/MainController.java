@@ -7,8 +7,10 @@ import com.vadim.spring.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -126,36 +128,15 @@ public class MainController {
         return "redirect:/all";
     }
 
-    @PostMapping(value = "/user_create", produces = "text/html; charset=utf-8")
-    public String createUser(User user) {
-        System.out.println("Контроллер Добавить -- " + user.toString());
-        System.out.println("Роли " + user.getRoles());
 
-        userService.add(user);
-        return "redirect:/all";
-    }
-    @PostMapping("/add")
-    public ModelAndView addNewUser(@ModelAttribute("user") User user, String[] myroles ){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/all");
-        System.out.println(user.toString());
-//        System.out.println(username + " " + lastname + " " + email + " " + age + " " + password + " Роли - " );
-        for (String  a : myroles) {
-            System.out.println("Роли - " + a);
-        }
-//        System.out.println("Новый контроллер -  " + user.toString());
-        System.out.println("======================================");
-//        userService.add(user);
-        return modelAndView;
-    }
-    @PostMapping(value = "/user_update")
+    @PostMapping(value = "/user_create")
     public String updateUserNew(@ModelAttribute("user") User user, String[] myRoles) {
         System.out.println("Обновляем юзера");
         System.out.println(user.toString());
         Role rol = new Role();
         Set<Role> r = new HashSet<>();
         for (String  a : myRoles) {
-            rol.setName(a);
+            rol = roleRepository.findByName(a);
             r.add(rol);
             System.out.println("Роли - " + a);
         }
@@ -166,16 +147,13 @@ public class MainController {
         return "redirect:/all";
     }
 
-//    @GetMapping("/findOne/{id}")
-//    @ResponseBody
-//    public User findOne(@PathVariable  Long id) {
-//
-//        System.out.println(id);
-//        User us = userService.getById(id);
-//        User uuu = userService.findByUsername("admin");
-//        User uss = new User();
-//        System.out.println(us.toString());
-//        System.out.println(uuu.toString());
-//        return uss;
-//    }
+    @PostMapping(value = "/delete")
+    public String deleteUser(@ModelAttribute("user") User user) {
+        System.out.println("Получили юзера для удаления - " + user.getUsername());
+        System.out.println("Удаляем по ИД - " + user.getId());
+        userService.delete(user.getId());
+        return "redirect:/all";
+    }
+
+
 }
