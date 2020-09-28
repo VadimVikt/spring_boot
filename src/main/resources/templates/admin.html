@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="view/header :: header-css">
+    </head>
+<body>
+<nav th:replace="view/header :: header"></nav>
+
+<div class="container">
+    <div class="col-3 mt-5 mb-3">
+        <a  href="/all">Старый сайт!</a>
+    </div>
+    <div class="row">
+        <div th:fragment="sidebar" class="col-2 side-bar">
+            <ul th:if="${isAdmin}" class="list-group">
+                <li th:class="${#httpServletRequest.requestURI.contains('/new')} ? 'list-group-item active active-link' : 'list-group-item'">
+                    <a th:href="@{'/all'}">Admin</a>
+                </li>
+                <li th:class="${#httpServletRequest.requestURI.contains('/user')} ? 'list-group-item active active-link' : 'list-group-item'">
+                    <a th:href="@{'/user'}" >User</a>
+                </li>
+            </ul>
+            <ul th:if="${isAdmin != true}" class="list-group">
+                <li th:class="${#httpServletRequest.requestURI.contains('/user')} ? 'list-group-item active active-link' : 'list-group-item'">
+                    <a th:href="@{'/user'}" >User</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10 content ">
+            <h2 th:text="${title}"></h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="users-table" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="new-user"href="#" >New user</a>
+                </li>
+            </ul>
+            <div  id="add-user" >
+                <b>Add new User</b>
+                <form class="form-group add-user-form"  accept-charset="utf-8">
+                    <label for="add-username">First Name</label>
+                    <input  class="form-control" id="add-username" type="text" name="username"  >
+                    <label for="add-last-name">Last Name</label>
+                    <input  class="form-control" id="add-last-name" type="text" name="lastName"  >
+                    <label for="add-age">Age</label>
+                    <input  class="form-control" id="add-age" type="number" name="age" >
+                    <label for="add-email">Email</label>
+                    <input  class="form-control" id="add-email" type="email" name="email"  >
+                    <label for="add-password">Password</label>
+                    <input  class="form-control" id="add-password" type="text" name="password"  >
+                    <label for="roles">Roles </label>
+                    <select multiple id="roles" name="myRoles" class="select-roles" size="3"  >
+                    </select>
+                    <button class="btn btn-success mt-1" >Add new user</button>
+                </form>
+            </div>
+            <table id="users"  class="table table-striped display">
+                <thead class="thead-light">
+                <th scope="col">Id</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Age</th>
+                <th scope="col">email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                </thead>
+                <tbody class="users-list"></tbody>
+            </table>
+
+
+
+        </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+<div th:replace="view/footer :: footer"></div>
+</body>
+</html>

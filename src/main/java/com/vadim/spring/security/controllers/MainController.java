@@ -41,6 +41,44 @@ public class MainController {
         return "login";
     }
 
+    @GetMapping("/new")
+    public String newLink(Model model, Principal principal) {
+        String title = "Admin panel";
+        User loggedUser = userService.findByUsername(principal.getName());
+        List<Role> roles =  roleRepository.findAll();
+        boolean isAdmin = false;
+        for (Role r : loggedUser.getRoles()) {
+            if (r.getName().equals("ADMIN")) {
+                System.out.println("isAdmin - true");
+                isAdmin = true;
+            }
+        }
+        model.addAttribute("title", title);
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("allRoles", roles);
+        return "new";
+    }
+    @GetMapping("/admin")
+    public String admin(Model model, Principal principal) {
+        System.out.println("Старт приложения");
+        String title = "Admin panel";
+        User loggedUser = userService.findByUsername(principal.getName());
+        List<Role> roles =  roleRepository.findAll();
+        boolean isAdmin = false;
+        for (Role r : loggedUser.getRoles()) {
+            if (r.getName().equals("ADMIN")) {
+                System.out.println("isAdmin - true");
+                isAdmin = true;
+            }
+        }
+        model.addAttribute("title", title);
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("allRoles", roles);
+        return "admin";
+    }
+
     @GetMapping(value = "/all")
     public String getAllUsers(Model model, Principal principal) {
         String title = "Admin panel";

@@ -1,6 +1,7 @@
 package com.vadim.spring.security.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -22,6 +23,7 @@ public class Role implements GrantedAuthority {
     }
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<User> users;
 
     public long getId() {

@@ -10,7 +10,11 @@
 <nav th:replace="view/header :: header"></nav>
 
 <div class="container">
+    <div class="col-3 mt-5 mb-3">
+        <a  href="/new">Новый сайт!</a>
+    </div>
     <div class="row">
+
        <div th:replace="view/sidebar :: sidebar"></div>
         <div class="col-10 content">
             <h2 th:text="${title}"></h2>
@@ -43,7 +47,7 @@
                     <td th:text="${user.email}"></td>
                     <td >
                         <span th:each="role, index : ${user.roles}">
-                        <span th:text="${role.name}">th:</span>
+                        <span th:text="${role.name}"></span>
                         </span>
                     </td>
                     <td>
@@ -161,7 +165,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <input type="submit" class="btn btn-primary"  value="Save" />
                     </div>
                 </div>
             </div>
@@ -186,7 +190,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="idDelete">ID</label>
                             <div class="col-sm-5">
-                                <input type="text" id="idDelete" class="form-control" name="id" th:name="${user.id}" th:field="*{id}" readonly value="" >
+                                <input type="text" id="idDelete" name="id" th:name="${user.id}" th:field="*{id}" readonly value="" >
                             </div>
                         </div>
                         <div class="form-group">
